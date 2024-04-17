@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Flipbook Example</title>
+    <!-- Include Vue.js from CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- Include Flipbook Vue from CDN -->
+    <script src="https://unpkg.com/flipbook-vue"></script>
+    <style>
+        .flipbook {
+            width: 90vw;
+            height: 90vh;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Your Vue.js app will be mounted here -->
+<div id="app">
+    <flipbook class="flipbook" :pages="images"></flipbook>
+</div>
+
+<script type="module">
+    // Import Flipbook component from flipbook-vue
+ //   import Flipbook from 'flipbook-vue/dist/flipbook-vue.esm.js';
+import Flipbook from 'flipbook-vue'
+
+    // Create a new Vue app
+    const app = Vue.createApp({
+        data() {
+            return {
+                images: [ 
+                    '/images/bjana_magazine/page_1.jpg',
+                    '/images/bjana_magazine/page_2.jpg',
+                    '/images/bjana_magazine/page_3.jpg',
+                    '/images/bjana_magazine/page_4.jpg',
+                    '/images/bjana_magazine/page_5.jpg',
+                    '/images/bjana_magazine/page_6.jpg',
+                    '/images/bjana_magazine/page_7.jpg'
+                ]
+            }
+        }
+    });
+
+    // Mount the app
+    app.component('flipbook', Flipbook);
+    app.mount('#app');
+</script>
+
+</body>
+</html>
+

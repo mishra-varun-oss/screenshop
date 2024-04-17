@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mailing_list.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Screenshop.xyz - Empowering Influencers</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Screenshop</a>
+    </nav>
+
+    <div class="container mt-5">
+
+        <div class="jumbotron">
+            <h1 class="display-4">Empowering Influencers and Sellers</h1>
+            <p class="lead">Welcome to Screenshop, where turning your influence into income is just a click away!</p>
+        </div>
+
+        <div class="row mb-5">
+
+            <div class="col-lg-4">
+                <div class="card mb-4 h-100 shadow">
+                    <div class="card-body bg-primary text-white">
+                        <h2 class="card-title">Easy Setup</h2>
+                        <p class="card-text">Set up your shop in minutes using our hassle-free subdomain services. No technical skills required!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4 h-100 shadow">
+                    <div class="card-body bg-success text-white">
+                        <h2 class="card-title">Intuitive Backend Panel</h2>
+                        <p class="card-text">Manage your listings, track orders, and gain valuable insights through our user-friendly backend management panel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4 h-100 shadow">
+                    <div class="card-body bg-info text-white">
+                        <h2 class="card-title">Mobile-Friendly</h2>
+                        <p class="card-text">Access your shop and manage operations on the go. Our platform is fully responsive on all devices.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h1 class="display-5">How It Works</h1>
+        <hr />
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <h3>1. Sign Up</h3>
+                <p>Create your account with a few simple steps.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>2. Custom Subdomain</h3>
+                <p>Choose your unique subdomain for a personalized online presence.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>3. List and Sell</h3>
+                <p>Add your products, set prices, and start selling to your audience.</p>
+            </div>
+        </div>
+
+        <h1 class="display-5">What Sets Us Apart</h1>
+        <hr />
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h2>Dedicated Support</h2>
+                <p>Our team is here to assist you at every step. Have a question? We've got you covered.</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Secure Transactions</h2>
+                <p>Rest easy knowing that your transactions are secure and your data is protected.</p>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <h3 class="mb-4">Stay in the Loop!</h3>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mailingListModal">
+                Sign Up For Our Mailing List
+            </button>
+        </div>
+
+    </div>
+
+    <div class="modal" id="mailingListModal" tabindex="-1" role="dialog" aria-labelledby="mailingListModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mailingListModalLabel">Sign Up For Our Mailing List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="mailingListForm" @submit.prevent="submitForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" v-model="firstName" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" v-model="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" v-model="email" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="xxx-xxx-xxxx"class="form-control" id="phone" v-model="phone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" v-model="city">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" id="state" v-model="state">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="country">Country</label>
+                                <input type="text" class="form-control" id="country" v-model="country">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="productNiche">Product Niche</label>
+                                <select class="form-control" id="productNiche" v-model="productNiche">
+                                    <option v-for="niche in productNicheOptions" :value="niche">{{ niche }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h5>Socials</h5>
+                        <hr/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="tiktok">TikTok</label>
+                                <input type="text" class="form-control" id="tiktok" v-model="tiktok" placeholder="TikTok handle">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="instagram">Instagram</label>
+                                <input type="text" class="form-control" id="instagram" v-model="instagram"
+                                    placeholder="Instagram handle">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="socialX">X</label>
+                                <input type="text" class="form-control" id="socialX" v-model="socialX" placeholder="X handle">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="facebook">Facebook</label>
+                                <input type="text" class="form-control" id="facebook" v-model="facebook"
+                                    placeholder="Facebook handle">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <label for="snapchat">Snapchat</label>
+                              <input type="text" class="form-control" id="snapchat" v-model="snapchat"
+                                  placeholder="Snapchat handle">
+                          </div>
+                            <div class="form-group col-md-6">
+                                <label for="youtube">YouTube</label>
+                                <input type="text" class="form-control" id="youtube" v-model="youtube"
+                                    placeholder="YouTube channel">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-3">
+        <p>screenshop.xyz | &copy; 2024 | All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/mailing_list.js"></script>
+</body>
+
+</html>
+

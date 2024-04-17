@@ -1,0 +1,41 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.outer_container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+.header p {
+	margin: 0 0 5px 0;
+}
+
+.map_container {
+	height: 90%;
+	margin: 0 15px;
+	margin-bottom: 15px;
+}
+
+#map {
+	height: 100%;
+}
+
+.button_container {
+	height: 30%;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}

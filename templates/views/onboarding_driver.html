@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Information Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles */
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="container mt-5">
+    <h2 class="mb-4">Driver Information Form</h2>
+    <form @submit.prevent="submitForm">
+        <!-- Step 1: Driver Name -->
+        <div class="form-step active" v-if="currentStep === 1">
+            <div class="mb-3">
+                <label for="driverName" class="form-label">Driver Name</label>
+                <input type="text" class="form-control" id="driverName" v-model="driverName" required>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 2: WhatsApp Number -->
+        <div class="form-step active" v-if="currentStep === 2">
+            <div class="mb-3">
+                <label for="whatsappNumber" class="form-label">WhatsApp Number</label>
+                <input type="text" class="form-control" id="whatsappNumber" v-model="whatsappNumber" required>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 3: Uploaded Driver's License -->
+        <div class="form-step active" v-if="currentStep === 3">
+            <div class="mb-3">
+                <label for="driverLicense" class="form-label">Uploaded Driver's License</label>
+                <input type="file" class="form-control" id="driverLicense" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 4: Aadhar Card -->
+        <div class="form-step active" v-if="currentStep === 4">
+            <div class="mb-3">
+                <label for="aadharCard" class="form-label">Aadhar Card</label>
+                <input type="file" class="form-control" id="aadharCard" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 5: Routing Number and Account Number -->
+        <div class="form-step active" v-if="currentStep === 5">
+            <div class="mb-3">
+                <label for="routingNumber" class="form-label">Routing Number</label>
+                <input type="text" class="form-control" id="routingNumber" v-model="routingNumber" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountNumber" class="form-label">Account Number</label>
+                <input type="text" class="form-control" id="accountNumber" v-model="accountNumber" required>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 6: Address -->
+        <div class="form-step active" v-if="currentStep === 6">
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" v-model="address" required></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" @click="nextStep">Next</button>
+        </div>
+
+        <!-- Step 7: Permits -->
+        <div class="form-step active" v-if="currentStep === 7">
+            <div class="mb-3">
+                <label for="permits" class="form-label">Permits</label>
+                <input type="file" class="form-control" id="permits" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- Vue.js -->
+<script src="https://unpkg.com/vue@3"></script>
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                currentStep: 1,
+                driverName: '',
+                whatsappNumber: '',
+                driverLicense: null,
+                aadharCard: null,
+                routingNumber: '',
+                accountNumber: '',
+                address: '',
+                permits: null,
+                steps: 7
+            };
+        },
+        methods: {
+            nextStep() {
+                this.currentStep++;
+            },
+            handleFileUpload(event) {
+                const inputId = event.target.id;
+                const file = event.target.files[0];
+
+                // Assign the file to the corresponding data property
+                this[inputId] = file;
+            },
+            submitForm() {
+                const formData = new FormData();
+                formData.append('driverName', this.driverName);
+                formData.append('whatsappNumber', this.whatsappNumber);
+                formData.append('driverLicense', this.driverLicense);
+                formData.append('aadharCard', this.aadharCard);
+                formData.append('routingNumber', this.routingNumber);
+                formData.append('accountNumber', this.accountNumber);
+                formData.append('address', this.address);
+                formData.append('permits', this.permits);
+
+                // Make an Axios POST request to your server endpoint
+                axios.post('/transport/upload', formData)
+                    .then(response => {
+                        console.log('Form submitted successfully:', response.data);
+                        // Optionally, you can redirect or perform other actions upon successful submission
+                    })
+                    .catch(error => {
+                        console.error('Error submitting form:', error);
+                        // Handle errors here
+                    });
+            }
+        }
+    });
+
+    app.mount('#app');
+</script>
+</body>
+</html>
+
